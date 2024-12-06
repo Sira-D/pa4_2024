@@ -90,7 +90,7 @@ if st.button('Generate Questions, Answers, and Technical Terms with Descriptions
                             {"role": "user", "content": term},
                         ]
                     )
-                    term_description = description_response.choices[0].message["content"].strip()
+                    term_description = description_response.choices[0].message.content.strip()
                     term_descriptions.append(term_description)
 
                 # Create a DataFrame to display the technical terms with their descriptions
