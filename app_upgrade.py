@@ -39,14 +39,17 @@ if st.button('Generate Questions, Answers, and Technical Terms with Descriptions
     ]
     
     # Get the response from OpenAI
-    response = openai.chat.completions.create(
+    response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=messages_so_far
     )
     
     # Extract the result from the response
-    st.markdown('**AI Response:**')
-    json_response = response.choices[0].message.content
+    st.markdown('**AI Response (Raw):**')
+    json_response = response.choices[0].message["content"]
+    
+    # Print the raw response for debugging purposes
+    st.markdown(f"**Raw AI Response:**\n{json_response}")
     
     try:
         # Parse the JSON response
@@ -80,12 +83,14 @@ if st.button('Generate Questions, Answers, and Technical Terms with Descriptions
                 term_descriptions = []
                 for term in unique_terms:
                     # Request a description for each technical term from the model
-                    description_response = openai.chat.completions.create(
+                    description_response = openai.ChatCompletion.create(
                         model="gpt-3.5-turbo",
-                        prompt=f"Provide a brief description of the technical term: {term}.",
-                        max_tokens=100
+                        messages=[
+                            {"role": "system", "content": "Provide a brief description of the technical term."},
+                            {"role": "user", "content": term},
+                        ]
                     )
-                    term_description = description_response.choices[0].text.strip()
+                    term_description = description_response.choices[0].message["content"].strip()
                     term_descriptions.append(term_description)
 
                 # Create a DataFrame to display the technical terms with their descriptions
