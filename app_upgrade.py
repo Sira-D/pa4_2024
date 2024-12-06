@@ -83,7 +83,7 @@ if st.button('Generate Questions, Answers, and Technical Terms with Descriptions
                 term_descriptions = []
                 for term in unique_terms:
                     # Request a description for each technical term from the model
-                    description_response = openai.ChatCompletion.create(
+                    description_response = openai.chat.completions.create(
                         model="gpt-3.5-turbo",
                         messages=[
                             {"role": "system", "content": "Provide a brief description of the technical term."},
