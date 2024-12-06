@@ -46,7 +46,7 @@ if st.button('Generate Questions, Answers, and Technical Terms with Descriptions
     
     # Extract the result from the response
     st.markdown('**AI Response (Raw):**')
-    json_response = response.choices[0].message["content"]
+    json_response = response.choices[0].message.content
     
     # Print the raw response for debugging purposes
     st.markdown(f"**Raw AI Response:**\n{json_response}")
