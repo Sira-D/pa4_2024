@@ -39,7 +39,7 @@ if st.button('Generate Questions, Answers, and Technical Terms with Descriptions
     ]
     
     # Get the response from OpenAI
-    response = openai.ChatCompletion.create(
+    response = openai.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=messages_so_far
     )
